@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // 🔥 Hashear password
+    // Hashear password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -47,18 +47,18 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({email});
 
         if (!user){
-            return res.status(400).json({mensaje: "Usuario no encontrado"});
+            return res.status(400).json({mensaje: "Email o password incorrectos"});
         }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({
-        mensaje: "Credenciales incorrectas",
+        mensaje: "Email o password incorrectos",
       });
     }
 
-    // 🔥 Aquí generamos el token
+    // Aquí generamos el token
     const token = jwt.sign(
       { id: user._id },
       process.env.SECRET_KEY,
