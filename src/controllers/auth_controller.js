@@ -1,4 +1,5 @@
-import bcrypt from bcrypt;
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { User } from "../models/user.js";
 
 export const registerUser = async (req, res) => {
@@ -75,6 +76,7 @@ export const loginUser = async (req, res) => {
             }, token,
         });
     } catch (error) {
+      console.error(error)
         res.status(500).json({mensaje: "Error al hacer login"});
     }
 };

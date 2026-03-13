@@ -23,7 +23,7 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     // Verificar token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     // Buscar usuario
     const user = await User.findById(decoded.id).select("-password");

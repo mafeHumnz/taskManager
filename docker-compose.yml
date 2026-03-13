@@ -16,6 +16,10 @@ services:
       - "4000:3000"
     depends_on:
       - mongo # Espera a que el servicio 'mongo' arranque
+    
+    env_file:
+      - .env
+
     environment:
       # IMPORTANTE: El host es 'mongo' porque coincide con el nombre del servicio arriba
       - MONGO_URI=mongodb://mongo:27017/mi_base

@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 
 export const registerUserValidator = [
   body("nombre")
@@ -34,15 +34,3 @@ export const loginUserValidator = [
     .notEmpty().withMessage("El campo password es obligatorio"),
 ];
 
-// export const idParamValidator = [
-//   param("id")
-//     .exists().withMessage("El ID es obligatorio")
-//     .isMongoId().withMessage("El formato ID no es valido"),
-// ];
-
-// export const updateUserValidator = [
-//   ...idParamValidator,
-//   body("nombre").trim().notEmpty().withMessage("El nombre no puede estar vacío"),
-//   body("email").notEmpty().withMessage("Email no puede estar vacio")
-//   .isEmail().withMessage("Formato de email no válido"),
-// ];

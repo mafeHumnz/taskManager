@@ -33,7 +33,6 @@ export const updateTaskValidator = [
   ...idTaskValidator,
 
   body("titulo")
-    .optional()
     .trim()
     .notEmpty()
     .withMessage("El título no puede estar vacío")
