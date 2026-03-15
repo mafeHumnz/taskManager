@@ -1,5 +1,13 @@
 import { Task } from "../models/task.js";
 
+const formatTaskResponse = (Task) => {
+    const taskObj = Task.toObject();
+    return {
+        ...taskObj,
+        estado: taskObj.estado ? "Completada" : "Perndiente"
+    };
+}
+
 export const createTask = async (req, res) => {
     try {
         const {titulo, descripcion, dueDate} = req.body;
@@ -20,7 +28,8 @@ export const createTask = async (req, res) => {
 export const getTasks = async (req, res) => {
     try {
         const tasks = await Task.find({user: req.user._id}).populate("user", "nombre email");
-        res.status(200).json(tasks);
+        const formattedTasks = tasks.map(formatTaskResponse);
+        res.status(200).json(formattedTasks);
     } catch (error) {
         res.status(500).json({mensaje:"Error al obtener tareas"});
     }
@@ -36,7 +45,7 @@ export const getTask = async (req, res) => {
             return res.status(404).json({mensaje: "La tarea no fue encontrada"});
         }
 
-        res.status(200).json(task);
+        res.status(200).json(formatTaskResponse(task));
     } catch (error) {
         res.status(500).json({mensaje:"Error al obtener tarea"});
     }
@@ -46,6 +55,7 @@ export const updateTask = async (req, res) => {
     try {
         const {id} = req.params;
         const {titulo, descripcion, estado, dueDate} = req.body;
+
 
         const actualizar = await Task.findOneAndUpdate(
                 { _id: id, user: req.user._id },
