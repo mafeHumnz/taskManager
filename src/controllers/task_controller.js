@@ -42,12 +42,22 @@ export const getTask = async (req, res) => {
         const task = await Task.findOne({_id: id, user: req.user._id}).populate("user", "nombre email");
 
         if (!task){
-            return res.status(404).json({mensaje: "La tarea no fue encontrada"});
+            return res.status(404).json({mensaje: "La tarea no fue encosntrada"});
         }
 
         res.status(200).json(formatTaskResponse(task));
     } catch (error) {
         res.status(500).json({mensaje:"Error al obtener tarea"});
+    }
+};
+
+// Filtrar por estado
+
+export const stateFilterTask = async (req, res) => {
+    try {
+        const {estado} = req.body;
+    } catch (error) {
+        
     }
 };
 
